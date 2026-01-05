@@ -1,115 +1,87 @@
-# Product Dashboard - OnPush Change Detection Strategy Demo
+# Product Dashboard – OnPush Change Detection Strategy Demo
 
-Bu proje, Angular'ın `OnPush` change detection stratejisini pratik olarak göstermek için tasarlanmıştır.
-
-## 📋 Senaryo: Ürün Envanter Yönetimi
-
-Bu uygulamada iki ana bölüm vardır:
-
-### 1. **Stock Tracker** (Sol Panel)
-- Mevcut stok miktarını gösterir
-- "Add Stock" butonu ile stoku artırabilirsiniz
-- "Remove Stock" butonu ile stoku azaltabilirsiniz
-- Stok durumunu göstermek için **StatusBadge** alt komponenti vardır
-
-### 2. **Inventory Management** (Sağ Panel)
-- Ürün listesini gösterir
-- Yeni ürün ekleme formunu içerir
-- **ChangeDetectionStrategy.OnPush** kullanır
-
-## 🔍 OnPush Stratejisinin Nasıl Çalıştığını İncelemek
-
-Tarayıcının **Developer Tools → Console** sekmesini açıp şu senaryoları test edin:
-
-### Senaryo 1: Stock Tracker'ı kullanırken
-```
-1. Stock Tracker'da "Add Stock" butonuna tıklayın
-2. Console'da [StockTracker] ve [StatusBadge] loglarını görürsünüz
-3. BUT: [InventoryComponent] ve [InventoryList] loglarını görmeyeceksiniz!
-   ➜ Neden? OnPush stratejisi sayesinde, aynı bileşen ağacında bir olay yoksa
-     diğer bölüm yeniden değerlendirilmez.
-```
-
-### Senaryo 2: Yeni ürün eklerken
-```
-1. Inventory Management'da form alanlarına yazı yazın
-2. Console'da [AddProduct] logunu göreceksiniz
-3. BUT: [InventoryList] logunu görmeyeceksiniz (AddProduct'te OnPush var)
-4. "Add Product" butonuna tıklayın
-5. Şimdi [InventoryList] logunu göreceksiniz!
-   ➜ Neden? Input değişti (@Input() productList) ve bu OnPush ile 
-     değişimi tetikler
-```
-
-### Senaryo 3: Stock ve Inventory arasındaki bağımsızlık
-```
-1. Stock Tracker'da tıklama yapın
-2. Inventory Management hiç değişmemeli
-3. Inventory'de form yazın ve ürün ekleyin
-4. Stock Tracker hiç değişmemeli
-   ➜ OnPush sayesinde bu iki bölüm tamamen bağımsız!
-```
-
-## 📁 Proje Yapısı
-
-```
-src/app/
-├── app.component.ts                    (OnPush YOK - kök component)
-├── stock-tracker/
-│   └── stock-tracker.component.ts      (OnPush YOK)
-│   └── status-badge.component.ts       (OnPush VAR - @Input ile)
-└── inventory/
-    ├── inventory.component.ts          (OnPush VAR)
-    ├── add-product/
-    │   └── add-product.component.ts    (OnPush VAR)
-    └── inventory-list/
-        └── inventory-list.component.ts (OnPush VAR - @Input ile)
-```
-
-## 🎯 OnPush'un Faydaları
-
-1. **Performance**: Gereksiz change detection döngülerini azaltır
-2. **Tahmini**: Input değişirse veya event olursa update olur
-3. **Bağımsızlık**: İlişkisiz bileşenlerin birbirini etkilemesini engeller
-4. **Skala**: Büyük uygulamalarda significant performance gain sağlar
-
-## ⚙️ Nasıl Çalıştırılır
-
-```bash
-# Proje klasörüne gidin
-cd product-dashboard
-
-# Angular projesi ise init edin
-ng new . --skip-git
-
-# Serveri başlatın
-ng serve
-
-# Browser'da açın
-http://localhost:4200
-```
-
-## 📝 Makale için Açıklamalar
-
-### OnPush Ne Zaman Kullanılmalı?
-
-✅ Kullanın:
-- Data-driven uygulamalar
-- Input değişikleri seyrek olduğunda
-- Büyük bileşen ağaçları
-- Performance-critical uygulamalar
-
-❌ Kullanmayın:
-- Basit uygulamalar
-- İçişi event binding'ler (two-way binding)
-- Zamanlayıcı ve observable'lar (manuel trigger gerekir)
-
-### OnPush'un Sınırlamaları
-
-- Observable veya setInterval kullanıyorsanız CD manuel olarak tetiklenmeli
-- Parent → Child flow'a uygundur (two-way binding'te sorunlu)
-- Debugging zor olabilir
+This project demonstrates **Angular's OnPush change detection strategy** in a practical Product Dashboard scenario.
 
 ---
 
-**Medium yazısı için bu proje tam bir demo olarak hizmet edebilir!**
+## 📋 Scenario: Product Inventory Management
+
+This app has **two main sections**:
+
+### 1️⃣ Stock Tracker (Left Panel)
+- Displays the current stock level  
+- `Add Stock` button to increase stock  
+- `Remove Stock` button to decrease stock  
+- Uses the **StatusBadge** subcomponent to display stock status  
+
+### 2️⃣ Inventory Management (Right Panel)
+- Displays the product list  
+- Contains a form to add new products  
+- Uses **ChangeDetectionStrategy.OnPush**  
+
+---
+
+## 🔍 Exploring How OnPush Works
+
+Open the browser’s **Developer Tools → Console** and test these scenarios:
+
+### Scenario 1: Using Stock Tracker
+1. Click `Add Stock` in Stock Tracker  
+2. You will see `[StockTracker]` and `[StatusBadge]` logs in console  
+3. **BUT**: You **won’t see** `[InventoryComponent]` or `[InventoryList]` logs  
+   ➜ Why? OnPush ensures that unrelated components don’t re-evaluate unless their own **Input changes** or an event occurs.
+
+### Scenario 2: Adding a New Product
+1. Type in the form fields of Inventory Management  
+2. `[AddProduct]` log appears  
+3. **BUT**: `[InventoryList]` log **does not appear** (AddProduct uses OnPush)  
+4. Click `Add Product` button  
+5. Now `[InventoryList]` log appears  
+   ➜ Why? The **@Input() productList** changed, which triggers OnPush re-evaluation.
+
+### Scenario 3: Independence Between Stock & Inventory
+1. Click buttons in Stock Tracker  
+2. Inventory Management should **not update**  
+3. Type and add a product in Inventory Management  
+4. Stock Tracker should **not update**  
+   ➜ OnPush ensures these two sections are fully independent!
+
+---
+
+## 📁 Project Structure
+
+src/app/
+├── app.component.ts (No OnPush – root component)
+├── stock-tracker/
+│ ├── stock-tracker.component.ts (No OnPush)
+│ └── status-badge.component.ts (OnPush – uses @Input)
+└── inventory/
+├── inventory.component.ts (OnPush)
+├── add-product/
+│ └── add-product.component.ts (OnPush)
+└── inventory-list/
+└── inventory-list.component.ts (OnPush – uses @Input)
+
+
+---
+
+## 🎯 Benefits of OnPush
+
+- **Performance:** Reduces unnecessary change detection cycles  
+- **Predictability:** Only updates when Inputs change or an event occurs  
+- **Independence:** Prevents unrelated components from affecting each other  
+- **Scalability:** Significant performance gains in large applications  
+
+---
+
+## ⚙️ How to Run
+
+```bash
+# Go to project folder
+cd product-dashboard
+
+# If Angular project is not initialized
+ng new . --skip-git
+
+# Start the development server
+ng serve
