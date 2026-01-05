@@ -50,17 +50,8 @@ Open the browser’s **Developer Tools → Console** and test these scenarios:
 
 ## 📁 Project Structure
 
-src/app/
-├── app.component.ts (No OnPush – root component)
-├── stock-tracker/
-│ ├── stock-tracker.component.ts (No OnPush)
-│ └── status-badge.component.ts (OnPush – uses @Input)
-└── inventory/
-├── inventory.component.ts (OnPush)
-├── add-product/
-│ └── add-product.component.ts (OnPush)
-└── inventory-list/
-└── inventory-list.component.ts (OnPush – uses @Input)
+<img width="353" height="230" alt="image" src="https://github.com/user-attachments/assets/0136dc65-62ac-47fd-8cd4-119d44a79430" />
+
 
 
 ---
