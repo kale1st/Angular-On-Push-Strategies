@@ -1,0 +1,17 @@
+.inventory-card {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid #764ba2;
+}
+
+h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+.debug {
+  font-size: 12px;
+  color: #999;
+  margin: 10px 0 20px;
+}

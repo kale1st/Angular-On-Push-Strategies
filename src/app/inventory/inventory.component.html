@@ -1,0 +1,7 @@
+<div class="inventory-card">
+  <h2>📊 Inventory Management</h2>
+  <p class="debug">{{ debugOutput }}</p>
+
+  <app-add-product (onAddProduct)="addProduct($event)"></app-add-product>
+  <app-inventory-list [productList]="products" [products$]="products$"></app-inventory-list>
+</div>

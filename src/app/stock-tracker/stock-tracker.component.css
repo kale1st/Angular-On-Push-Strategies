@@ -1,0 +1,74 @@
+.tracker-card {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+.debug {
+  font-size: 12px;
+  color: #999;
+  margin: 10px 0 20px;
+}
+
+.stock-display {
+  text-align: center;
+  margin: 30px 0;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  border: 2px solid #667eea;
+}
+
+.stock-number {
+  font-size: 48px;
+  font-weight: bold;
+  color: #667eea;
+}
+
+.stock-display p {
+  margin: 10px 0 0;
+  color: #666;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.btn {
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-add {
+  background: #28a745;
+  color: white;
+}
+
+.btn-add:hover {
+  background: #218838;
+  transform: translateY(-2px);
+}
+
+.btn-remove {
+  background: #dc3545;
+  color: white;
+}
+
+.btn-remove:hover {
+  background: #c82333;
+  transform: translateY(-2px);
+}

@@ -1,0 +1,32 @@
+.badge-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.debug {
+  font-size: 12px;
+  color: #999;
+  margin: 0 0 10px;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 14px;
+  color: white;
+}
+
+.status-badge.good {
+  background: #28a745;
+}
+
+.status-badge.warning {
+  background: #ffc107;
+  color: #333;
+}
+
+.status-badge.critical {
+  background: #dc3545;
+}

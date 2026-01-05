@@ -1,0 +1,21 @@
+<div class="tracker-card">
+  <h2>📦 Stock Tracker</h2>
+  <p class="debug">{{ debugOutput }}</p>
+
+  <div class="stock-display">
+    <div class="stock-number">{{ currentStock }}</div>
+    <p>Items in Stock</p>
+    <p *ngIf="lowStockWarning" class="warning">⚠️ Low Stock Warning!</p>
+  </div>
+
+  <div class="button-group">
+    <button (click)="increaseStock()" class="btn btn-add">
+      + Add Stock
+    </button>
+    <button (click)="decreaseStock()" class="btn btn-remove">
+      - Remove Stock
+    </button>
+  </div>
+
+  <app-status-badge [quantity]="currentStock"></app-status-badge>
+</div>
